@@ -17,7 +17,7 @@ class Game():
         self.window_height = height
         self.bird = Bird(height)
         local_dir = os.path.dirname(__file__)
-        self.background = pygame.image.load(os.path.join(local_dir, 'background.png'))
+        self.background = pygame.image.load(os.path.join(local_dir, 'imgs', 'background.png'))
         self.pipes = []
         self.score = 0
         self.tick = 0

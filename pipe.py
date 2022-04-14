@@ -11,7 +11,7 @@ class Pipe:
         self.gap = 200
 
         local_dir = os.path.dirname(__file__)
-        self.bottom_pipe_img = pygame.image.load(os.path.join(local_dir, 'pipe.png'))
+        self.bottom_pipe_img = pygame.image.load(os.path.join(local_dir, 'imgs', 'pipe.png'))
         self.top_pipe_img = pygame.transform.flip(self.bottom_pipe_img, False, True)
 
     def draw(self, window):

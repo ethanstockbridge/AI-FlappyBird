@@ -8,8 +8,8 @@ class Bird():
         self.window_height = window_height
         self.y=window_height/2
         local_dir = os.path.dirname(__file__)
-        self.bird_up_img = pygame.image.load(os.path.join(local_dir, 'bird_up.png'))
-        self.bird_down_img = pygame.image.load(os.path.join(local_dir, 'bird_down.png'))
+        self.bird_up_img = pygame.image.load(os.path.join(local_dir, 'imgs', 'bird_up.png'))
+        self.bird_down_img = pygame.image.load(os.path.join(local_dir, 'imgs', 'bird_down.png'))
         self.image = self.bird_down_img
 
     def draw(self, window):
