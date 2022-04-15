@@ -7,11 +7,20 @@ import os
 pygame.init()
 
 class Game():
+    """Game class: Controls the bird and pipes to form a game
+    """
     SCORE_FONT = pygame.font.SysFont("comicsans", 50)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
 
     def __init__(self, width, height):
+        """Init module
+
+        :param width: Width of the game
+        :type width: int
+        :param height: Height of the game
+        :type height: int
+        """
         self.window = pygame.display.set_mode((width, height))
         self.window_width = width
         self.window_height = height
@@ -23,6 +32,11 @@ class Game():
         self.tick = 0
 
     def update(self):
+        """Update the game (new frame)
+
+        :return: Game status (if it is still going)
+        :rtype: bool
+        """
         self.tick += 1
         if(self.tick%40==0):
             self.pipes.append(Pipe(self.window_width, self.window_height))
@@ -40,8 +54,14 @@ class Game():
         self.window.blit(score_txt, (self.window_width // 2 - score_txt.get_width()//2, 10))
         if not self.checkValidity() or self.score>200:
             return False
+        return True
 
     def getGameInfo(self):
+        """Get the game information for the AI
+
+        :return: [bird y, closest pipe bottom y, closest pipe top y]
+        :rtype: list
+        """
         bird_y = self.bird.y
         if len(self.pipes)==0:
             return [bird_y, 0, self.window_height]
@@ -51,6 +71,11 @@ class Game():
         return [bird_y, closest_pipe_bottom, closest_pipe_top]
 
     def checkValidity(self):
+        """Check if the game is valid (bird has not crashed into pipe)
+
+        :return: Status of game
+        :rtype: bool
+        """
         if len(self.pipes) == 0:
             return True
         closestpipe = self.pipes[0]

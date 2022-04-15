@@ -3,7 +3,19 @@ import random
 import os
 
 class Pipe:
+    """Pipe class: represents pipes in the game
+    """
+
+    VEL = 10
+
     def __init__(self, window_width, window_height):
+        """Init module
+
+        :param window_width: Width of the game window
+        :type window_width: int
+        :param window_height: Height of the game window
+        :type window_height: int
+        """
         self.x = window_width
         self.height = random.randint(window_height//4,window_height-window_height//4)
         self.window_height = window_height
@@ -15,6 +27,12 @@ class Pipe:
         self.top_pipe_img = pygame.transform.flip(self.bottom_pipe_img, False, True)
 
     def draw(self, window):
+        """Draw the pipe to our game's window
+
+        :param window: Running game's window
+        :type window: Pygame surface object
+        """
+        print(window)
         # draw top pipe
         # pygame.draw.rect(window, (0, 255, 0), (self.x, 0, self.width, self.height))
         window.blit(self.top_pipe_img,  (self.x, self.height-self.top_pipe_img.get_height()))
@@ -23,4 +41,6 @@ class Pipe:
         window.blit(self.bottom_pipe_img,  (self.x, self.height+self.gap))
 
     def update(self):
-        self.x-=10
+        """Move the pipe towards the bird at the given velocity
+        """
+        self.x-=self.VEL

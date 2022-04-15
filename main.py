@@ -9,7 +9,10 @@ HEIGHT = 700
 SPEED = 20
 fps = 30
 
+
 def play_game():
+    """Let the user play the game themselves. Spacebar to jump
+    """
     game = Game(WIDTH, HEIGHT)
 
     clock = pygame.time.Clock()
@@ -31,7 +34,7 @@ def play_game():
         
         game.bird.jump(jumping)
         
-        if game.update() is not None:
+        if not game.update():
             return 
 
         pygame.display.update()
@@ -39,6 +42,14 @@ def play_game():
     pygame.quit()
 
 def train_ai(genomes, config):
+    """Train the AI using python NEAT module. Sped up 
+
+
+    :param genomes: The current generation's set of genomes
+    :type genomes: List of tuples: (genome id, neat.genome object)
+    :param config: Configuration for the AI run
+    :type config: neat.config object
+    """
     for genome_id, genome in genomes:
         net = neat.nn.FeedForwardNetwork.create(genome, config)
 
@@ -62,7 +73,7 @@ def train_ai(genomes, config):
 
             game.bird.jump(decision)
             
-            if game.update() is not None:
+            if not game.update():
                 genome.fitness = game.score 
                 run=False
 
@@ -72,6 +83,11 @@ def train_ai(genomes, config):
 
 
 def test_ai(net):
+    """Test the resulting AI best run in realtime. 
+
+    :param net: The best run genome's net
+    :type net: neat.nn.feed_forward.FeedForwardNetwork object
+    """
     game = Game(WIDTH, HEIGHT)
 
     clock = pygame.time.Clock()
@@ -92,7 +108,7 @@ def test_ai(net):
 
         game.bird.jump(decision)
         
-        if game.update() is not None:
+        if not game.update():
             run=False
 
         pygame.display.update()
@@ -101,6 +117,8 @@ def test_ai(net):
 
 
 def test_best_network():
+    """Open the previously saved best network and run it in the game
+    """
     with open("best.pickle", "rb") as f:
         winner = pickle.load(f)
     local_dir = os.path.dirname(__file__)
@@ -114,6 +132,8 @@ def test_best_network():
 
 
 def run_neat():
+    """Run the NEAT algorithm on our game to get the best AI genome
+    """
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config.txt')
 
@@ -133,6 +153,9 @@ def run_neat():
 
 
 if __name__ == "__main__":
+    """Main function to run our game
+    """
+
     print("Press 1 to play yourself (spacebar to jump)")
     print("Press 2 to train AI")
     print("Press 3 to run AI (after training)")
