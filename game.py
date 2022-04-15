@@ -9,7 +9,6 @@ pygame.init()
 class Game():
     """Game class: Controls the bird and pipes to form a game
     """
-    SCORE_FONT = pygame.font.SysFont("comicsans", 50)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
 
@@ -21,6 +20,8 @@ class Game():
         :param height: Height of the game
         :type height: int
         """
+        pygame.font.init()
+        self.SCORE_FONT = pygame.font.SysFont("comicsans", 50)
         self.window = pygame.display.set_mode((width, height))
         self.window_width = width
         self.window_height = height
@@ -37,23 +38,25 @@ class Game():
         :return: Game status (if it is still going)
         :rtype: bool
         """
+        #check if the bird and pipes are valid
+        self.bird.update()
+        for pipe in self.pipes:
+            pipe.update()
+        if not self.checkValidity() or self.score>200:
+            return False
+        #valid, continue with drawing everything in:
         self.tick += 1
         if(self.tick%40==0):
             self.pipes.append(Pipe(self.window_width, self.window_height))
-        # self.window.fill(self.BLACK)
         self.window.blit(self.background, (0,0))
-        self.bird.update()
         self.bird.draw(self.window)
-        ctb4=len(self.pipes)
+        prev_count=len(self.pipes)
         self.pipes = [pipe for pipe in self.pipes if pipe.x>0]
-        self.score += ctb4 - len(self.pipes)
+        self.score += prev_count - len(self.pipes)
         for pipe in self.pipes:
-            pipe.update()
             pipe.draw(self.window)
         score_txt = self.SCORE_FONT.render(f"{self.score}", 1, self.WHITE)
         self.window.blit(score_txt, (self.window_width // 2 - score_txt.get_width()//2, 10))
-        if not self.checkValidity() or self.score>200:
-            return False
         return True
 
     def getGameInfo(self):

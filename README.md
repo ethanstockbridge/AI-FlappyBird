@@ -15,4 +15,12 @@ This project requires [Python](https://www.python.org/downloads/) to run, and th
 - [NEAT](https://neat-python.readthedocs.io/en/latest/)
 
 
-# Testing
+# Usage
+
+## User play
+
+Using the first option of gameplay, the user can play the recreated flappybird game themselves. Press spacebar to jump. 
+
+## AI training 
+
+Using the 2nd option of gameplay, we can train the AI using the NEAT python module. This will 
