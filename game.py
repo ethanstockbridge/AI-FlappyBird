@@ -51,7 +51,7 @@ class Game():
         self.window.blit(self.background, (0,0))
         self.bird.draw(self.window)
         prev_count=len(self.pipes)
-        self.pipes = [pipe for pipe in self.pipes if pipe.x>0]
+        self.pipes = [pipe for pipe in self.pipes if (pipe.x+pipe.width)>0]
         self.score += prev_count - len(self.pipes)
         for pipe in self.pipes:
             pipe.draw(self.window)
