@@ -32,7 +32,6 @@ class Pipe:
         :param window: Running game's window
         :type window: Pygame surface object
         """
-        print(window)
         # draw top pipe
         # pygame.draw.rect(window, (0, 255, 0), (self.x, 0, self.width, self.height))
         window.blit(self.top_pipe_img,  (self.x, self.height-self.top_pipe_img.get_height()))
